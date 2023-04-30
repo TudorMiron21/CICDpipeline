@@ -41,3 +41,8 @@ jobs:
     - name: Create SQL Database
       run: |
         az sql db create --name tudorDatabase --resource-group tudorDevopsProject --server tudorSQLServer --tier Basic --edition Basic --collation SQL_Latin1_General_CP1_CI_AS
+
+    #This command creates an autoscale setting for the tudorApp web app. It specifies that the app should have at least 1 instance, at most 5 instances, and maintain an average CPU utilization of 70% over a 5-minute period. It also specifies that the time grain for evaluating the condition should be 5 minutes. You can adjust these values to suit your needs.
+    - name: Create Autoscale settings
+      run: |
+        az monitor autoscale create --resource-group tudorDevopsProject --resource tudorApp --resource-type "Microsoft.Web/sites" --name tudorAutoscale --min-count 1 --max-count 5 --count 2 --time-grain 00:05:00 --condition "percentageCpu > 70 avg 5m"
