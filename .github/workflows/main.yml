@@ -28,6 +28,6 @@ jobs:
         
     - name: Create Web App
       run: |
-        az webapp create --name tudorApp --resource-group tudorDevopsProject --plan myplan --runtime "NODE|14-lts" --deployment-local-git
+        az webapp create --name tudorApp --resource-group tudorDevopsProject --plan tudorPlan --runtime "NODE|14-lts" --deployment-local-git
 
     
