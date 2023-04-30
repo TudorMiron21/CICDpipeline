@@ -47,6 +47,23 @@ jobs:
     #  run: |
      #   az monitor autoscale create --resource-group tudorDevopsProject --resource tudorApp --resource-type Microsoft.Web/sites --name tudorAutoscale --min-count 1 --max-count 3 --count 2
     #    az monitor autoscale rule create -g tudorDevopsProject --autoscale-name tudorApp --scale out 1 --condition "CpuPercentage > 80 avg 5m"
+    
+      
+      
+    - name: Create Alert Rule
+      uses: Azure/azure-actions-monitor-alert@v1.0
+      with:
+        rule-name: myAlertRule
+        resource-group: tudorDevopsProject
+        scopes: |
+          /subscriptions/<subscription-id>/resourceGroups/tudorDevopsProject/providers/Microsoft.Web/sites/tudorApp
+        condition: "Microsoft.Web/sites CpuPercentage > 80"
+        description: "CPU usage is high"
+        frequency: 1m
+        severity: 2
+        window-size: 5m
+        time-aggregation: Average
+        action-group: myActionGroup
         
     - name: Create Alert rule for Web App
       run: |
