@@ -17,3 +17,7 @@ jobs:
     
     - run: |
         az webapp list --query "[?state=='Running']"
+        
+    - run: |
+        az group create --name tudorDevopsProject --location northeurope
+        az webapp list --query "[?state=='Running']"
