@@ -32,7 +32,7 @@ jobs:
 
     - name: Create SQL Server
       run: |
-        az sql server create --name tudorSQLServer --resource-group tudorDevopsProject --location northeurope --admin-user myadmin --admin-password myadminpassword
+        az sql server create --name tudorSQLServer --resource-group tudorDevopsProject --location northeurope --admin-user myadmin --admin-password AdminPassword1234!@#$
     
     - name: Create Firewall Rule
       run: |
