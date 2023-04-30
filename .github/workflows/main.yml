@@ -45,4 +45,4 @@ jobs:
     #This command creates an autoscale setting for the tudorApp web app. It specifies that the app should have at least 1 instance, at most 5 instances, and maintain an average CPU utilization of 70% over a 5-minute period. It also specifies that the time grain for evaluating the condition should be 5 minutes. You can adjust these values to suit your needs.
     - name: Create Autoscale settings
       run: |
-        az monitor autoscale create --resource-group tudorDevopsProject --resource tudorApp --resource-type "Microsoft.Web/sites" --name tudorAutoscale --min-count 1 --max-count 5 --count 2 --condition "avgPercentageCpu > 70" --time-grain "00:05:00"
+        az monitor autoscale create --resource-group <resource-group-name> --resource <resource-name> --resource-type <resource-type> --name <autoscale-setting-name> --min-count <min-instance-count> --max-count <max-instance-count> --count <default-instance-count> --condition "MemoryPercentage > 70" --time-grain "PT1M"
