@@ -1,7 +1,10 @@
 
 #File: .github/workflows/workflow.yml
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 name: AzureLoginSample
 
@@ -17,7 +20,14 @@ jobs:
     
     - run: |
         az webapp list --query "[?state=='Running']"
-        
-    - run: |
+       
+    - name: Create Resource Group
+      run: |
         az group create --name tudorDevopsProject --location northeurope
         az webapp list --query "[?state=='Running']"
+        
+    - name: Create Web App
+      run: |
+        az webapp create --name mywebapp --resource-group tudorDevopsProject --plan myplan --deployment-local-git --html
+
+    
