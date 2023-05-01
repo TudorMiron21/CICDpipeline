@@ -28,7 +28,7 @@ jobs:
         
     - name: Create Web App
       run: |
-        az webapp create --name tudorApp --resource-group tudorDevopsProject --plan tudorPlan --runtime "HTML" --deployment-local-git
+        az webapp create --name tudorApp --resource-group tudorDevopsProject --plan tudorPlan --runtime "STATIC" --deployment-local-git
 
     - name: Create SQL Server
       run: |
