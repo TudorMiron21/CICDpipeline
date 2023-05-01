@@ -54,7 +54,7 @@ jobs:
       run: |
         export scope=$(az vm show -g tudorDevopsProject -n VM1 --query "id" -o tsv)
         condition=$(az monitor metrics alert condition create --aggregation Average --metric "Percentage CPU" --op GreaterThan --type static --threshold 90 --output tsv)
-        az monitor metrics alert create --name tudorAlert --resource-group tudorDevopsProject --scopes $scope --action $action --condition $condition --description "Test High CPU"
+        az monitor metrics alert create --name tudorAlert --resource-group tudorDevopsProject --scopes $(echo $scope | tr -d '\r') --condition "avg Percentage CPU > 90" --description "Test High CPU" --debug
         
 
         
