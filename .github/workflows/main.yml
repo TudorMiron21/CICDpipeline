@@ -51,20 +51,10 @@ jobs:
       
       
     - name: Create Alert Rule
-      uses: Azure/azure-actions-monitor-alert@v1.0
-      with:
-        rule-name: myAlertRule
-        resource-group: tudorDevopsProject
-        scopes: |
-          /subscriptions/<subscription-id>/resourceGroups/tudorDevopsProject/providers/Microsoft.Web/sites/tudorApp
-        condition: "Microsoft.Web/sites CpuPercentage > 80"
-        description: "CPU usage is high"
-        frequency: 1m
-        severity: 2
-        window-size: 5m
-        time-aggregation: Average
-        action-group: myActionGroup
-        
-    - name: Create Alert rule for Web App
       run: |
-        az monitor metrics alert create --name tudorAlertRule --resource-group tudorDevopsProject --scopes /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/tudorApp --condition "CpuPercentage > 80" --description "CPU usage is high" --evaluation-frequency 1m --severity 2 --window-size 5m --time-aggregation Average --actions "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/actionGroups/{actionGroupName}" 
+        export scope=$(az vm show -g tudorDevopsProject -n VM1 --query "id" -o tsv)
+        condition=$(az monitor metrics alert condition create --aggregation Average --metric "Percentage CPU" --op GreaterThan --type static --threshold 90 --output tsv)
+        az monitor metrics alert create --name tudorAlert --resource-group tudorDevopsProject --scopes $scope --action $action --condition $condition --description "Test High CPU"
+        
+
+        
